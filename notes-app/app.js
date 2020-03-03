@@ -1,11 +1,10 @@
-const chalk = require('chalk')
 const yargs = require('yargs')
 const notes = require('./notes.js')
 
 yargs.version('1.0.0')
 
 yargs.command({
-    command: 'save',
+    command: 'add',
     describe: 'Add a new note',
     builder: {
         title: {
@@ -19,7 +18,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: notes.add
+    handler: (argv) => { notes.add(argv.title, argv.body) }
 })
 
 yargs.command({
@@ -37,7 +36,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: notes.update
+    handler: (argv) => notes.update(argv.title, argv.body)
 })
 
 yargs.command({
@@ -50,7 +49,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: notes.remove
+    handler: (argv) => notes.remove(argv.title)
 })
 
 yargs.command({
@@ -69,7 +68,7 @@ yargs.command({
             type: 'string'
         }
     },
-    handler: notes.read
+    handler: (argv) => notes.read(argv.title)
 })
 
 yargs.parse()
